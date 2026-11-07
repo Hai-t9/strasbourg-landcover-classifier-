@@ -1,0 +1,25 @@
+# --- secrets: never commit service-account keys -------------------------
+strasbourg-classification-*.json
+**/*.json.key
+*credentials*
+
+# --- heavy data artefacts (reproducible from the code/ scripts) ---------
+data/shape/            # OSM shapefiles, publicly re-downloadable from OSM
+data/img/s2_stack.tif
+data/img/_gee_tiles/
+data/img/tile_grid.parquet
+data/img/s2_rgb_preview.jpg
+data/labels/*.tif
+data/labels/*.npy
+data/labels/*.jpg
+data/features/*.parquet
+data/processed/*.parquet
+
+# --- python ------------------------------------------------------------
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+
+# --- os / editor -------------------------------------------------------
+.DS_Store

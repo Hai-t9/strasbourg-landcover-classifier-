@@ -1,0 +1,24 @@
+{
+  "scenes": 203,
+  "date_range": "2025-06-01/2025-09-30",
+  "bands": [
+    "blue",
+    "green",
+    "red",
+    "rededge70",
+    "rededge71",
+    "rededge72",
+    "nir",
+    "nir08",
+    "swir16",
+    "swir22"
+  ],
+  "crs": "EPSG:32632",
+  "scale": 10,
+  "grid": {
+    "x0": 392730,
+    "y1": 5396790,
+    "w": 3668,
+    "h": 3168
+  }
+}

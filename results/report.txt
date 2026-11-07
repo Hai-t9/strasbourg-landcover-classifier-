@@ -1,0 +1,14 @@
+best=hist_gradient_boosting
+feature_cols=['blue_mean', 'blue_std', 'green_mean', 'green_std', 'red_mean', 'red_std', 'rededge70_mean', 'rededge70_std', 'rededge71_mean', 'rededge71_std', 'rededge72_mean', 'rededge72_std', 'nir_mean', 'nir_std', 'nir08_mean', 'nir08_std', 'swir16_mean', 'swir16_std', 'swir22_mean', 'swir22_std', 'ndvi_mean', 'ndvi_std', 'ndwi_mean', 'ndwi_std', 'ndbi_mean', 'ndbi_std', 'brightness', 'frac_blue', 'frac_green', 'frac_red', 'frac_rededge70', 'frac_rededge71', 'frac_rededge72', 'frac_nir', 'frac_nir08', 'frac_swir16', 'frac_swir22']
+
+              precision    recall  f1-score   support
+
+    built_up      0.963     0.922     0.942       626
+    farmland      0.928     0.954     0.941       796
+      forest      0.834     0.992     0.906       127
+       grass      0.542     0.371     0.441        70
+       water      0.951     1.000     0.975        58
+
+    accuracy                          0.922      1677
+   macro avg      0.844     0.848     0.841      1677
+weighted avg      0.919     0.922     0.919      1677

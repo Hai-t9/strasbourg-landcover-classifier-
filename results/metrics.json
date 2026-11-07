@@ -1,0 +1,18 @@
+{
+  "dummy_majority": {
+    "macro_f1": 0.12875050545895675,
+    "accuracy": 0.47465712581991654
+  },
+  "logreg": {
+    "macro_f1": 0.8394711620753947,
+    "accuracy": 0.8944543828264758
+  },
+  "random_forest": {
+    "macro_f1": 0.8269615894359195,
+    "accuracy": 0.9016100178890877
+  },
+  "hist_gradient_boosting": {
+    "macro_f1": 0.8409007929270302,
+    "accuracy": 0.9218843172331544
+  }
+}
