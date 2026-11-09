@@ -31,7 +31,7 @@ DEFAULT = {"lat": 48.5734, "lon": 7.7521}
 with st.sidebar:
     st.header("1 · Choose a location")
     st.write("click the map to move the marker ↓")
-    markers = st.map(pd.DataFrame([DEFAULT]), zoom=10, key="pick")
+    markers = st.map(pd.DataFrame([DEFAULT]), zoom=10)
 
     lat_in = st.number_input("latitude", min_value=47.8, max_value=49.4,
                              value=DEFAULT["lat"], step=0.001, format="%.5f")
@@ -41,18 +41,22 @@ with st.sidebar:
     lat, lon = lat_in, lon_in
     # if the user clicked the map, take the *last clicked* point
     try:
-        if hasattr(markers, "get_last_row"):
-            last = markers.get_last_row()
-            row = last[-1] if isinstance(last, pd.DataFrame) else last
-            if row is not None:
-                if isinstance(row, dict):
-                    row = pd.Series(row)
-                if row is not None and not pd.isna(row.get("lat", np.nan)) \
-                       and not pd.isna(row.get("lon", np.nan)):
-                    lat, lon = float(row["lat"]), float(row["lon"])
-                    st.write(f"map point: **{lat:.5f}, {lon:.5f}**")
+        last = None
+        if isinstance(markers, pd.DataFrame) and len(markers):
+            last = markers.iloc[-1]
+        elif hasattr(markers, "get_last_row"):
+            last_df = markers.get_last_row()
+            last = last_df.iloc[-1] if isinstance(last_df, pd.DataFrame) and len(last_df) else last_df
+        if last is not None:
+            if isinstance(last, (dict,)):
+                last = pd.Series(last)
+            la, lo = last.get("lat", np.nan), last.get("lon", np.nan)
+            if not pd.isna(la) and not pd.isna(lo) and (la != DEFAULT["lat"] or lo != DEFAULT["lon"]):
+                lat, lon = float(la), float(lo)
+                st.write(f"map point: **{lat:.5f}, {lon:.5f}**")
     except Exception:
         pass
+    st.caption(f"current point: {lat:.5f}, {lon:.5f}")
 
     st.divider()
     st.subheader("2 · Classify")
