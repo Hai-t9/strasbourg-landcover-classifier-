@@ -63,8 +63,9 @@ def _init_ee():
                       project=svc["project_id"])
     else:
         ee.Initialize(project="strasbourg-classification")   # on-machine default creds
+    # generous imagery scope (Europe + Maghreb) so foreign points still get tiles
     s2 = (ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
-          .filterBounds(ee.Geometry.Rectangle([7.2, 48.1, 8.8, 49.1]))
+          .filterBounds(ee.Geometry.Rectangle([-11.0, 27.0, 35.0, 55.0]))
           .filterDate(*DATE_RANGE.split("/")))
 
     def mask(it):

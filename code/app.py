@@ -30,13 +30,15 @@ DEFAULT = {"lat": 48.5734, "lon": 7.7521}
 
 with st.sidebar:
     st.header("1 · Choose a location")
+    pt = st.session_state.get("pt", dict(DEFAULT))
     st.write("click the map to move the marker ↓")
-    markers = st.map(pd.DataFrame([DEFAULT]), zoom=10)
+    markers = st.map(pd.DataFrame([pt]), zoom=10)
 
-    lat_in = st.number_input("latitude", min_value=41.0, max_value=51.5,
-                             value=DEFAULT["lat"], step=0.001, format="%.5f")
+    st.write("… or type coordinates:")
+    lat_in = st.number_input("latitude", min_value=29.0, max_value=52.0,
+                             value=pt["lat"], step=0.001, format="%.5f")
     lon_in = st.number_input("longitude", min_value=-6.0, max_value=10.0,
-                             value=DEFAULT["lon"], step=0.001, format="%.5f")
+                             value=pt["lon"], step=0.001, format="%.5f")
 
     lat, lon = lat_in, lon_in
     # if the user clicked the map, take the *last clicked* point
@@ -51,11 +53,12 @@ with st.sidebar:
             if isinstance(last, (dict,)):
                 last = pd.Series(last)
             la, lo = last.get("lat", np.nan), last.get("lon", np.nan)
-            if not pd.isna(la) and not pd.isna(lo) and (la != DEFAULT["lat"] or lo != DEFAULT["lon"]):
-                lat, lon = float(la), float(lo)
-                st.write(f"map point: **{lat:.5f}, {lon:.5f}**")
+            if not pd.isna(la) and not pd.isna(lo) and \
+               (abs(la - lat) > 1e-6 or abs(lo - lon) > 1e-6):
+                lat, lon = float(la), float(lo)   # take the clicked point
     except Exception:
         pass
+    st.session_state["pt"] = {"lat": float(lat), "lon": float(lon)}
     st.caption(f"current point: {lat:.5f}, {lon:.5f}")
 
     st.divider()
