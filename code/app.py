@@ -33,9 +33,9 @@ with st.sidebar:
     st.write("click the map to move the marker ↓")
     markers = st.map(pd.DataFrame([DEFAULT]), zoom=10)
 
-    lat_in = st.number_input("latitude", min_value=47.8, max_value=49.4,
+    lat_in = st.number_input("latitude", min_value=41.0, max_value=51.5,
                              value=DEFAULT["lat"], step=0.001, format="%.5f")
-    lon_in = st.number_input("longitude", min_value=6.9, max_value=8.9,
+    lon_in = st.number_input("longitude", min_value=-6.0, max_value=10.0,
                              value=DEFAULT["lon"], step=0.001, format="%.5f")
 
     lat, lon = lat_in, lon_in
@@ -70,6 +70,13 @@ if go:
 
     st.subheader(f"({lat:.5f}, {lon:.5f})")
     col_img, col_res, col_bar = st.columns([1.3, 1.1, 1.1])
+
+    # honest warning when the point is outside the region the model was trained on
+    in_area = (7.55 <= lon <= 8.04) and (48.43 <= lat <= 48.72)
+    if not in_area:
+        st.warning("⚠️ this point is outside the study area the model was trained on "
+                   "(Eurométropole de Strasbourg, 7.55–8.04 E / 48.43–48.72 N). "
+                   "The tile is still fetched and classified, but treat the label as a guess.")
 
     with col_img:
         st.image(geotile.rgb_preview(tiles), output_format="PNG",
