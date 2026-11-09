@@ -84,6 +84,7 @@ print("\nper-class report (test):\n", report)
 (OUT / "metrics.json").write_text(json.dumps(results, indent=2))
 (OUT / "report.txt").write_text(
     f"best={best}\nfeature_cols={feat_cols}\n\n{report}")
+(OUT / "feature_cols.json").write_text(json.dumps(feat_cols, indent=1))
 
 with open(OUT / "model.pkl", "wb") as f:
     pickle.dump(best_model, f)

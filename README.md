@@ -39,6 +39,21 @@ all 18 396 tiles), `results/summary.md`.
 see `.gitignore`). The registered service account is
 `my-app-strasbourg-service@strasbourg-classification.iam.gserviceaccount.com`.
 
+## Interactive demo (Streamlit)
+
+```
+streamlit run code/app.py          # from the project root
+```
+
+- click the map or type `lat/lon` → the app fetches the 250 m Sentinel-2 tile
+  **on demand from GEE for that exact location**, computes the same 38 features
+  and shows the predicted class + confidence + per-pixel NDVI.
+- `code/gee_tile.py` is the reusable "classify any coordinate" service module
+  (`python3 code/gee_tile.py 48.71193 7.73516` for a CLI test).
+- credentials: the GEE service-account key is read from the project root, or
+  from the `GEE_KEY_JSON`/`GEE_KEY_FILE` environment variables (use
+  `GEE_KEY_JSON` with the full JSON body when deploying to Streamlit Cloud).
+
 ## Data
 
 - `data/shape/` (OSM shapefiles) are **not in git** — re-download them from
